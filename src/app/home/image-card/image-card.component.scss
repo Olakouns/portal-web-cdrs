@@ -1,0 +1,46 @@
+.image-slide {
+  height: 100%;
+}
+
+
+.card-right{
+  position: relative;
+}
+
+.card-shadow{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: 16px;
+  background: linear-gradient(0deg, #002021 0.3%, rgba(0, 32, 33, 0.70) 5.51%, rgba(0, 32, 33, 0.50) 11.97%, rgba(0, 32, 33, 0.40) 25.21%, rgba(0, 32, 33, 0.00) 44.25%);
+
+  &-content {
+    color: white;
+    padding: 16px;
+    position: absolute;
+    bottom: 0;
+
+    p {
+      font-weight: 300;
+    }
+  }
+}
+
+.circle-indicator{
+  display: flex;
+  justify-content: end;
+  &-item{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #BCEBEE;
+    margin: 0 4px;
+    cursor: pointer;
+
+    &-active{
+      background-color: white;
+    }
+  }
+}
