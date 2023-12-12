@@ -11,7 +11,32 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$portal-primary: mat.define-palette(mat.$indigo-palette);
+
+$my-primary: (
+  50: #f0f9e9,
+  100: #dbeec9,
+  200: #c3e3a6,
+  300: #abd882,
+  400: #98cf66,
+  500: #86c74b,
+  600: #77b743,
+  700: #63a239,
+  800: #508e30,
+  900: #2c6c1e,
+  contrast: (50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: rgba(black, 0.87),
+    800: rgba(black, 0.87),
+    900: rgba(black, 0.87),
+  )
+);
+
+$portal-primary: mat.define-palette($my-primary, $default: 700);
 $portal-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
@@ -19,13 +44,10 @@ $portal-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$portal-theme: mat.define-light-theme((
-  color: (
-    primary: $portal-primary,
-    accent: $portal-accent,
-    warn: $portal-warn,
-  )
-));
+$portal-theme: mat.define-light-theme((color: (primary: $portal-primary,
+        accent: $portal-accent,
+        warn: $portal-warn,
+      )));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -34,5 +56,20 @@ $portal-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #F5F5F5;
+  display:  flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.w-50{
+  width: 50%;
+}

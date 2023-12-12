@@ -1,0 +1,10 @@
+.home-content {
+    display: flex;
+    height: 100%;
+    &-left{
+        width: 50%;
+    }
+    &-right{
+        width: 50%;
+    }
+}
