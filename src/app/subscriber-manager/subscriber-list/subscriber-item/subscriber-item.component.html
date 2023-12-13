@@ -1,0 +1,28 @@
+<div class="card-item">
+    <div class="card-item-content">
+        <div class="card-item-circle" [class]="{
+                'card-item-circle-color-er': data.tlServices.length == 0, 
+                'card-item-circle-color-p': data.tlServices.length > 0 && data.tlServices.length <= 5,
+                'card-item-circle-color-ter': data.tlServices.length > 5, }">
+            <label>{{data.name | initiales}}</label>
+        </div>
+        <div class="card-item-info">
+            <h5>{{data.name}}</h5>
+            <h6>{{data.phoneNumber}}</h6>
+        </div>
+    </div>
+
+    <div>
+        <div class="card-item-info-2">
+            <h5>IMSI : {{data.imsi}}</h5>
+            <h6>{{data.subscriberType}}</h6>
+        </div>
+    </div>
+
+    <div class="card-item-indicator" [class]="{
+        'card-item-indicator-color-2': data.tlServices.length == 0, 
+        'card-item-indicator-color-1': data.tlServices.length > 0 && data.tlServices.length <= 5,
+        'card-item-indicator-color-3': data.tlServices.length > 5, }">
+        <label for="">{{data.tlServices.length}}</label>
+    </div>
+</div>

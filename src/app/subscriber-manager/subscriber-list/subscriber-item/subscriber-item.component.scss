@@ -1,0 +1,113 @@
+.card-item{
+    border-radius: 8px;
+    background: #F5F5F5;
+    width: 100%;
+    display: inline-flex;
+    padding: 12px 16px;
+    align-items: center;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.5s;
+    margin-bottom: 24px;
+    justify-content: space-between;
+
+    &:hover{
+        background-color: #EAE9E9;
+    }
+
+    &-indicator{
+        position: absolute;
+        right: -16px;
+        top: -16px;
+        display: flex;
+        width: 10px;
+        height: 10px;
+        padding: 10px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+
+        label {
+            font-size: 10px;
+            font-weight: bold;
+        }
+        &-color-1{
+            background:  #BCEBEE;
+        }
+        &-color-2{
+            background:  #FFDAD6;
+        }
+        &-color-3{
+            background:  #AEF596;
+        }
+    }
+
+    &-info{
+        margin-left: 14px;
+        h5 {
+            margin: 0;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        h6 {
+            margin: 0;
+            font-weight: normal;
+            color: #54634D;
+            font-size: 14px;
+        }
+    }
+    &-info-2{
+        margin-right: 168px;
+        h5 {
+            margin: 0;
+            margin-bottom: 10px;
+            color:  #2C6C1E;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+        h6 {
+            margin: 0;
+            font-weight: normal;
+            color: #386668;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+        }
+    }
+
+    &-content{
+        display: flex;
+        align-items: center;
+    }
+
+    &-circle{
+        width: 70px;
+        height: 70px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        label{
+            color: #002021;
+            font-weight: 700;
+        }
+
+        &-color-p{
+            background-color:  #BCEBEE;
+        }
+        &-color-er{
+            background-color:  #FFDAD6;
+        }
+        &-color-ter{
+            background-color:  #AEF596;
+        }
+    }
+
+}

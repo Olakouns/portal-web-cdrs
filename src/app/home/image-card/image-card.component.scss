@@ -1,6 +1,19 @@
+.p-relative{
+  position:  relative;
+}
 .image-slide {
   height: 100%;
+  // position: absolute;
+  // right: -100px;
+  // opacity: .5;
+  // animation: slide 0.5s forwards;
+  // animation-delay: 2s;
 }
+
+// @keyframes slide {
+//   100% { right: 0; opacity: 1; }
+// }
+
 
 
 .card-right{
@@ -25,6 +38,12 @@
     p {
       font-weight: 300;
     }
+  }
+
+  &-logo{
+    position: absolute;
+    right: 16px;
+    top: 16px;
   }
 }
 

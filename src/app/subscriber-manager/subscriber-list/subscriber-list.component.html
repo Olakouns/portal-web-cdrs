@@ -1,0 +1,23 @@
+<div class="padding-list">
+
+    <div class="header-data">
+        <h3 class="text-primary">Gestion des abonnés</h3>
+
+        <!-- SEARCH LEVEL -->
+        <div class="action-head">
+            <input class="my-search" #search placeholder="rechercher" (keyup) = "onSearch(search.value)" />
+            <button class="my-btn">
+                <label>Add new</label>
+                <img src="assets/add.svg" alt="" srcset="">
+            </button>
+        </div>
+    </div>
+   
+
+    <!-- Subscribers list -->
+    <div class="list-items">
+        @for (item of dummySubscriberListSearch; track $index) {
+            <app-subscriber-item [data]="item"></app-subscriber-item>
+        }
+    </div>
+</div>

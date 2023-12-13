@@ -1,21 +1,9 @@
 <div class="home-content ">
   <div class="home-content-left">
     <div class="action">
-      <div class="action-card action-card-color-p action-card-content">
-        <img src="assets/g-subs.svg" alt="" srcset="">
-        <h5>Gestion des abonnés</h5>
-        <p>Simplifiez la création et la gestion des abonnés pour offrir des services téléphoniques sans tracas</p>
-      </div>
-      <div class="action-card action-card-color-s action-card-content">
-        <img src="assets/g-fac.svg" alt="" srcset="">
-        <h5>Gestion de la facturation</h5>
-        <p>Simplifiez la facturation pour une gestion financière en toute simplicité et tranquillité d'esprit.</p>
-      </div>
-      <div class="action-card action-card-color-p action-card-content">
-        <img src="assets/g-cdrs.svg" alt="" srcset="">
-        <h5>CDR en Un Coup d'Œil </h5>
-        <p>Simplifiez la gestion des CDR (Call Detail Records) pour une vue claire et une analyse efficace de l'activité téléphonique</p>
-      </div>
+        @for (item of servicesItems; track item.title) {
+            <app-service-item [data]="item"></app-service-item>
+        }
     </div>
   </div>
   <div class="home-content-right">

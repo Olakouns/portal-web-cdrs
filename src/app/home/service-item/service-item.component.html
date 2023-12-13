@@ -1,1 +1,5 @@
-<p>service-item works!</p>
+<a class="action-card action-card-content" [class]="data.cssClass" [routerLink]="data.url" >
+    <img [src]="data.icon" alt="" srcset="">
+    <h5>{{data.title}}</h5>
+    <p>{{data.description}}</p>
+</a>
