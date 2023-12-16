@@ -6,13 +6,13 @@
         <!-- SEARCH LEVEL -->
         <div class="action-head">
             <input class="my-search" #search placeholder="rechercher" (keyup) = "onSearch(search.value)" />
-            <button class="my-btn">
+            <button class="my-btn" (click)="openDialog('250ms', '250ms')">
                 <label>Add new</label>
                 <img src="assets/add.svg" alt="" srcset="">
             </button>
         </div>
     </div>
-   
+
 
     <!-- Subscribers list -->
     <div class="list-items">

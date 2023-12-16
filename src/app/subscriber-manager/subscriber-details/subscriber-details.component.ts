@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {SubscriberUser} from "../../models/subscriber-user";
 
 @Component({
   selector: 'app-subscriber-details',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './subscriber-details.component.scss'
 })
 export class SubscriberDetailsComponent {
-
+  @Input({required: true}) subscriber: SubscriberUser;
 }

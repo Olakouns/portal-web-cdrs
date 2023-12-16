@@ -1,0 +1,51 @@
+.my-dialog{
+  padding: 14px 23px 14px 23px;
+  &-title{
+    font-size: 16px;
+    font-weight: bold;
+    color: #386668;
+    text-align: center;
+    margin-top: 0;
+  }
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 12px !important;
+}
+
+::ng-deep .cdk-overlay-dark-backdrop {
+  background: rgb(0 0 0 / 21%) !important;
+}
+
+.my-input{
+  border-radius: 6px;
+  border: 0.5px solid #a4a4a44d;
+  outline: none;
+  padding: 10px 10px 10px 19px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 51px;
+  &:focus-visible{
+    border: 0.5px solid #A4A4A4;
+  }
+}
+.form-content{
+  width: 100%;
+}
+
+.mb-3{
+  margin-bottom: 12px;
+}
+
+.w-100{
+  width: 100%;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper{
+  display: none;
+}
+
+
+

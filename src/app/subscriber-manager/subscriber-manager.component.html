@@ -1,8 +1,20 @@
 <div class="subscribers-home">
-    <div class="subscribers-home-left">
-        <app-subscriber-list></app-subscriber-list>
-    </div>
-    <div class="subscribers-home-right">
-        <app-subscriber-details></app-subscriber-details>
-    </div>
+  <div class="subscribers-home-left">
+    <app-subscriber-list></app-subscriber-list>
+  </div>
+  <div class="subscribers-home-right">
+    @if (currentSubscriber) {
+       <app-subscriber-details [subscriber]="currentSubscriber"></app-subscriber-details>
+    } @else {
+      <div class="details-default">
+        <div class="details-default-content">
+          <img src="assets/sun.svg" alt="" srcset="">
+          <h4>Abonnement sans Complications</h4>
+          <p>Facilitez la vie de vos utilisateurs avec une gestion fluide des abonnés. Créez, personnalisez et communiquez
+            sans tracas pour une expérience téléphonique optimale. Notre solution conviviale rend l'abonnement facile,
+            garantissant vos clients une connexion sans soucis et une satisfaction continue.</p>
+        </div>
+      </div>
+    }
+  </div>
 </div>

@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
-import { SubscriberItemComponent } from './subscriber-item/subscriber-item.component';
-import { SubscriberUser } from '../../models/subscriber-user';
-import { SubscriberType } from '../../models/subscriber-type';
-// import { SubscriberItemComponent } from './subscriber-item/subscriber-item.component';
+import {Component, OnInit} from '@angular/core';
+import {SubscriberItemComponent} from './subscriber-item/subscriber-item.component';
+import {SubscriberUser} from '../../models/subscriber-user';
+import {SubscriberType} from '../../models/subscriber-type';
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {AddSubscriberComponent} from "./add-subscriber/add-subscriber.component";
+
 
 @Component({
   selector: 'app-subscriber-list',
   standalone: true,
-  imports: [SubscriberItemComponent],
+  imports: [SubscriberItemComponent, MatDialogModule],
   templateUrl: './subscriber-list.component.html',
   styleUrl: './subscriber-list.component.scss'
 })
-export class SubscriberListComponent {
+export class SubscriberListComponent implements OnInit {
   dummySubscriberList: Array<SubscriberUser> = [
     {
       "id": 1,
@@ -191,13 +193,27 @@ export class SubscriberListComponent {
 
   dummySubscriberListSearch = [...this.dummySubscriberList]
 
+  constructor(public dialog: MatDialog) {
+  }
+
+  ngOnInit(): void {
+  }
+
   onSearch(searchText: string) {
     this.dummySubscriberListSearch = this.dummySubscriberList.filter(value => (
-      value.name.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()) || 
+      value.name.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()) ||
       value.phoneNumber.includes(searchText) ||
       value.imsi.includes(searchText) ||
       value.subscriberType.includes(searchText.toUpperCase())
     ))
+  }
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(AddSubscriberComponent, {
+      width: '700px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
   }
 
 }
