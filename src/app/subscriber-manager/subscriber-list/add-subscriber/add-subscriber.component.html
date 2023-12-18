@@ -4,17 +4,36 @@
     <!--  form-->
     <div class="form-content">
 
-      <mat-form-field appearance="outline" class="w-100 mb-3">
-        <input matInput placeholder="Nom et premom">
-      </mat-form-field>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <input matInput placeholder="Nom et premom"  formControlName="name">
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-100 mb-3">
-        <input matInput placeholder="IMSI">
-      </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <input matInput placeholder="IMSI" formControlName="imsi">
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-100 mb-3">
-        <input matInput placeholder="Telephone">
-      </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <input matInput placeholder="Telephone" formControlName="phoneNumber">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <input type="text"
+                 placeholder="Services"
+                 aria-label="Number"
+                 formControlName="tlServices"
+                 matInput
+                 [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectItems($event)">
+            @for (option of filteredOptions | async; track option) {
+            <mat-option [value]="option.label">{{option.label + (option.hasTargetNumber ? "( Numero Cible )" : "")}}</mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <button type="submit">Send</button>
+      </form>
+
 
     </div>
   </div>
