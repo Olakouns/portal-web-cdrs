@@ -118,3 +118,50 @@ body {
   //border-radius: 8px !important;
 }
 
+.my-btn{
+  display: flex;
+  width: fit-content;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 36px;
+  background: #2C6C1E;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 0 16px 0 16px;
+  font-weight: bold;
+  label{
+    cursor: pointer;
+  }
+  img{
+    cursor: pointer;
+  }
+  &:hover{
+    background: #2c6c1ee7;
+  }
+}
+
+.my-btn-danger{
+  display: flex;
+  width: fit-content;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 36px;
+  background: transparent;
+  border: 1px solid #BA1A1A;
+  cursor: pointer;
+  color: #BA1A1A;
+  padding: 0 16px 0 16px;
+  font-weight: bold;
+  label{
+    cursor: pointer;
+  }
+  img{
+    cursor: pointer;
+  }
+  &:hover{
+    background: rgba(186, 26, 26, 0.06);
+  }
+}

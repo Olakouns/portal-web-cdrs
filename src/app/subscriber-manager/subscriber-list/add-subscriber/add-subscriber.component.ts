@@ -12,8 +12,11 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatAutocompleteModule, MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
-import {AsyncPipe} from "@angular/common";
+import {AsyncPipe, NgForOf} from "@angular/common";
 import {SERVICE_TYPE_MAP} from "../../../models/service-type.enum";
+import {MatIconModule} from "@angular/material/icon";
+import {MatSelectModule} from "@angular/material/select";
+import {SubscriberType} from "../../../models/subscriber-type";
 
 
 class ServiceTypeList {
@@ -34,7 +37,9 @@ class ServiceTypeList {
     MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
-    AsyncPipe],
+    MatIconModule,
+    MatSelectModule,
+    AsyncPipe, NgForOf],
   templateUrl: './add-subscriber.component.html',
   styleUrl: './add-subscriber.component.scss'
 })
@@ -42,6 +47,7 @@ export class AddSubscriberComponent implements OnInit {
 
   options : Array<ServiceTypeList> = [...SERVICE_TYPE_MAP];
   filteredOptions: Observable<Array<ServiceTypeList>>;
+  subscriberTypes = SubscriberType;
 
   form = this.formBuilder.group({
     name: ['', [Validators.required]],
@@ -50,6 +56,8 @@ export class AddSubscriberComponent implements OnInit {
     subscriberType: ['', [Validators.required]],
     tlServices: ['', [Validators.required]],
   });
+
+  services : Array<ServiceTypeList> = [];
 
   constructor(public dialogRef: MatDialogRef<AddSubscriberComponent>, public formBuilder: FormBuilder) {
   }
@@ -71,7 +79,15 @@ export class AddSubscriberComponent implements OnInit {
   }
 
   onSelectItems($event: MatAutocompleteSelectedEvent) {
-    // console.log($event.option.value)
+    console.log($event.option.value)
+    let index = this.options.findIndex(option => option.label === $event.option.value);
+    console.log(index)
+    if (index != -1){
+      this.services.push(this.options[index]);
+      this.options.splice(index, 1);
+      this.launchFilter();
+      this.form.controls['tlServices'].setValue('');
+    }
     // this.options = this.options.filter(option => option.label !== $event.option.value);
     // console.log(this.options)
     // this.launchFilter();
@@ -79,5 +95,11 @@ export class AddSubscriberComponent implements OnInit {
 
   onSubmit() {
     console.log(this.form.value)
+  }
+
+  onRemoveItem(value : ServiceTypeList) {
+    this.options.push(value);
+    this.services = this.services.filter(service => service.label !== value.label);
+    this.launchFilter();
   }
 }

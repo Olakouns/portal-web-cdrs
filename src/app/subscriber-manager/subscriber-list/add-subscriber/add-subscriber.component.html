@@ -17,6 +17,13 @@
           <input matInput placeholder="Telephone" formControlName="phoneNumber">
         </mat-form-field>
 
+        <mat-form-field  appearance="outline" class="w-100 mb-3">
+          <mat-select  required formControlName="subscriberType">
+            <mat-option [value]="subscriberTypes.POSTPAID">POSTPAID</mat-option>
+            <mat-option [value]="subscriberTypes.PREPAID">PREPAID</mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <mat-form-field appearance="outline" class="w-100 mb-3">
           <input type="text"
                  placeholder="Services"
@@ -31,7 +38,19 @@
           </mat-autocomplete>
         </mat-form-field>
 
-        <button type="submit">Send</button>
+        <div class="spans">
+          <div class="spans-chips" [class]="{'spans-chips-color-1': !service.hasTargetNumber, 'spans-chips-color-2': service.hasTargetNumber}" *ngFor="let service of services">
+            <span>{{service.label}}</span>
+            <img (click)="onRemoveItem(service)" src="assets/close-circle.svg" alt="" srcset="">
+          </div>
+        </div>
+
+
+        <div class="action-form">
+          <button class="my-btn-danger custom-btn-p mr-16" type="submit">Annuler</button>
+          <button class="my-btn custom-btn-p" type="submit">Ajouter</button>
+        </div>
+
       </form>
 
 

@@ -11,8 +11,14 @@
   box-sizing: border-box;
 }
 
-::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
-  border-radius: 12px !important;
+
+::ng-deep .mdc-dialog__content::-webkit-scrollbar-thumb {
+  background-color: transparent !important; /* Make the scrollbar thumb transparent */
+}
+
+
+::ng-deep .mdc-dialog__content::-webkit-scrollbar {
+  width: 0 !important;
 }
 
 ::ng-deep .cdk-overlay-dark-backdrop {
@@ -48,4 +54,51 @@
 }
 
 
+.spans{
+  display: flex;
+  flex-wrap: wrap;
+  &-chips{
+    margin-bottom: 14px;
+    width: fit-content;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 24px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    color: #002021;
+    margin-right: 14px;
+    span {
+      margin-right: 8px;
+    }
+    &-color-1{
+      background: #BCEBEE;
+    }
+    &-color-2{
+      background: #AEF596;
+    }
+    &-color-3{
+      background: #D7E8CC;
+    }
+    img{
+      cursor: pointer;
+    }
+  }
+}
 
+
+.custom-btn-p{
+  padding: 12px 40px 12px 40px;
+}
+
+.mr-16{
+  margin-right: 16px;
+}
+
+.action-form{
+  margin: 24px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
