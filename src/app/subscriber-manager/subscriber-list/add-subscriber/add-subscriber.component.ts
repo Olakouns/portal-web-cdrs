@@ -20,10 +20,11 @@ import {SubscriberType} from "../../../models/subscriber-type";
 
 
 class ServiceTypeList {
-  value : string;
-  label : string;
+  value: string;
+  label: string;
   hasTargetNumber: boolean;
 }
+
 @Component({
   selector: 'app-add-subscriber',
   standalone: true,
@@ -45,7 +46,7 @@ class ServiceTypeList {
 })
 export class AddSubscriberComponent implements OnInit {
 
-  options : Array<ServiceTypeList> = [...SERVICE_TYPE_MAP];
+  options: Array<ServiceTypeList> = [...SERVICE_TYPE_MAP];
   filteredOptions: Observable<Array<ServiceTypeList>>;
   subscriberTypes = SubscriberType;
 
@@ -57,7 +58,9 @@ export class AddSubscriberComponent implements OnInit {
     tlServices: ['', [Validators.required]],
   });
 
-  services : Array<ServiceTypeList> = [];
+  services: Array<ServiceTypeList> = [];
+
+  isLoading = false;
 
   constructor(public dialogRef: MatDialogRef<AddSubscriberComponent>, public formBuilder: FormBuilder) {
   }
@@ -82,7 +85,7 @@ export class AddSubscriberComponent implements OnInit {
     console.log($event.option.value)
     let index = this.options.findIndex(option => option.label === $event.option.value);
     console.log(index)
-    if (index != -1){
+    if (index != -1) {
       this.services.push(this.options[index]);
       this.options.splice(index, 1);
       this.launchFilter();
@@ -95,11 +98,17 @@ export class AddSubscriberComponent implements OnInit {
 
   onSubmit() {
     console.log(this.form.value)
+    this.isLoading = true;
+    // todo: create USER here
   }
 
-  onRemoveItem(value : ServiceTypeList) {
+  onRemoveItem(value: ServiceTypeList) {
     this.options.push(value);
     this.services = this.services.filter(service => service.label !== value.label);
     this.launchFilter();
+  }
+
+  onClose() {
+    this.dialogRef.close();
   }
 }

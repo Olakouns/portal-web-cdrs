@@ -1,6 +1,8 @@
+import {ServiceTypeEnum} from "./service-type.enum";
+
 export class TLService {
     id : number;
-    serviceType: string;
+    serviceType: ServiceTypeEnum;
     activated: boolean;
     targetNumber: string;
 }

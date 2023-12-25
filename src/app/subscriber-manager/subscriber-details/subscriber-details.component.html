@@ -1,1 +1,25 @@
-<p>subscriber-details works!</p>
+<div class="user-details">
+      <div class="user-details-header">
+          <h5>{{subscriber.name}}</h5>
+          <label>{{subscriber.phoneNumber}}</label>
+      </div>
+
+  <div class="mt-4 d-flex justify-content-between align-items-center">
+    <div class="spans-chips" [class]="{'spans-chips-color-1': subscriber.subscriberType == 'POSTPAID', 'spans-chips-color-2': subscriber.subscriberType=='PREPAID'}">
+      <span>{{subscriber.subscriberType}}</span>
+    </div>
+
+    <button class="my-btn" (click)="onAddServices('250ms', '250ms')">
+      <label>Add service</label>
+      <img src="assets/add.svg" alt="" srcset="">
+    </button>
+  </div>
+
+  <div class="mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3 service-item" *ngFor="let service of subscriber.tlServices">
+      <label>{{getServicesName(service.serviceType)}}</label>
+      <label class="service-item-number">{{service.targetNumber ? service.targetNumber : '...'}}</label>
+      <img [src]="service.activated ? 'assets/service-e.svg' : 'assets/service-d.svg'" alt="" srcset="">
+    </div>
+  </div>
+</div>

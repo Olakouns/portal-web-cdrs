@@ -4,12 +4,16 @@ import {SubscriberUser} from '../../models/subscriber-user';
 import {SubscriberType} from '../../models/subscriber-type';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {AddSubscriberComponent} from "./add-subscriber/add-subscriber.component";
+import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
+import {InitialesPipe} from "../../pipes/initiales.pipe";
+import {LoaderSkeletonItemComponent} from "./loader-skeleton-item/loader-skeleton-item.component";
+import {ServiceTypeEnum} from "../../models/service-type.enum";
 
 
 @Component({
   selector: 'app-subscriber-list',
   standalone: true,
-  imports: [SubscriberItemComponent, MatDialogModule],
+  imports: [SubscriberItemComponent, MatDialogModule, NgxSkeletonLoaderModule, InitialesPipe, LoaderSkeletonItemComponent],
   templateUrl: './subscriber-list.component.html',
   styleUrl: './subscriber-list.component.scss'
 })
@@ -26,7 +30,7 @@ export class SubscriberListComponent implements OnInit {
         {
           "id": 1,
           "activated": true,
-          "serviceType": "SERV_VOICE",
+          "serviceType": ServiceTypeEnum.SERV_VOICE,
           "targetNumber": ""
         }
       ]
@@ -42,13 +46,13 @@ export class SubscriberListComponent implements OnInit {
         {
           "id": 1,
           "activated": true,
-          "serviceType": "SERV_DATA",
+          "serviceType": ServiceTypeEnum.SERV_VOLTE,
           "targetNumber": "123456789"
         },
         {
           "id": 2,
           "activated": false,
-          "serviceType": "SERV_SMS",
+          "serviceType": ServiceTypeEnum.SERV_SMS,
           "targetNumber": ""
         }
       ]
@@ -73,7 +77,7 @@ export class SubscriberListComponent implements OnInit {
         {
           "id": 1,
           "activated": true,
-          "serviceType": "SERV_VOICE",
+          "serviceType": ServiceTypeEnum.SERV_VOICE,
           "targetNumber": "987654321"
         }
       ]
@@ -98,37 +102,37 @@ export class SubscriberListComponent implements OnInit {
         {
           "id": 1,
           "activated": false,
-          "serviceType": "SERV_DATA",
+          "serviceType": ServiceTypeEnum.SERV_VOLTE,
           "targetNumber": ""
         },
         {
           "id": 2,
           "activated": true,
-          "serviceType": "SERV_SMS",
+          "serviceType": ServiceTypeEnum.SERV_SMS,
           "targetNumber": ""
         },
         {
           "id": 3,
           "activated": true,
-          "serviceType": "SERV_VOICE",
+          "serviceType": ServiceTypeEnum.SERV_VOICE,
           "targetNumber": "111222333"
         },
         {
           "id": 4,
           "activated": false,
-          "serviceType": "SERV_VOICE",
+          "serviceType": ServiceTypeEnum.SERV_ROAMING,
           "targetNumber": ""
         },
         {
           "id": 5,
           "activated": true,
-          "serviceType": "SERV_DATA",
+          "serviceType": ServiceTypeEnum.SERV_3G,
           "targetNumber": "444555666"
         },
         {
           "id": 6,
           "activated": true,
-          "serviceType": "SERV_SMS",
+          "serviceType": ServiceTypeEnum.SERV_5G,
           "targetNumber": ""
         }
       ]
@@ -153,7 +157,7 @@ export class SubscriberListComponent implements OnInit {
         {
           "id": 1,
           "activated": true,
-          "serviceType": "SERV_SMS",
+          "serviceType": ServiceTypeEnum.SERV_SMS,
           "targetNumber": "111222333"
         }
       ]
@@ -169,13 +173,13 @@ export class SubscriberListComponent implements OnInit {
         {
           "id": 1,
           "activated": false,
-          "serviceType": "SERV_VOICE",
+          "serviceType": ServiceTypeEnum.SERV_VOICE,
           "targetNumber": ""
         },
         {
           "id": 2,
           "activated": true,
-          "serviceType": "SERV_DATA",
+          "serviceType": ServiceTypeEnum.SERV_5G,
           "targetNumber": "555444333"
         }
       ]
@@ -193,10 +197,18 @@ export class SubscriberListComponent implements OnInit {
 
   dummySubscriberListSearch = [...this.dummySubscriberList]
 
+  isLoading = false;
+
+  selectedSubscriber: SubscriberUser;
+
   constructor(public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000);
   }
 
   onSearch(searchText: string) {
@@ -216,4 +228,7 @@ export class SubscriberListComponent implements OnInit {
     });
   }
 
+  onSubscriberSelected($event: SubscriberUser) {
+    this.selectedSubscriber = $event;
+  }
 }

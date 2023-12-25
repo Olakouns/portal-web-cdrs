@@ -18,7 +18,7 @@
         </mat-form-field>
 
         <mat-form-field  appearance="outline" class="w-100 mb-3">
-          <mat-select  required formControlName="subscriberType">
+          <mat-select placeholder="Type de souscription"  required formControlName="subscriberType">
             <mat-option [value]="subscriberTypes.POSTPAID">POSTPAID</mat-option>
             <mat-option [value]="subscriberTypes.PREPAID">PREPAID</mat-option>
           </mat-select>
@@ -47,7 +47,7 @@
 
 
         <div class="action-form">
-          <button class="my-btn-danger custom-btn-p mr-16" type="submit">Annuler</button>
+          <button class="my-btn-danger custom-btn-p mr-16" (click)="onClose()">Annuler</button>
           <button class="my-btn custom-btn-p" type="submit">Ajouter</button>
         </div>
 

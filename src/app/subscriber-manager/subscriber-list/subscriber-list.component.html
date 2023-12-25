@@ -1,23 +1,28 @@
 <div class="padding-list">
 
-    <div class="header-data">
-        <h3 class="text-primary">Gestion des abonnés</h3>
+  <div class="header-data">
+    <h3 class="text-primary">Gestion des abonnés</h3>
 
-        <!-- SEARCH LEVEL -->
-        <div class="action-head">
-            <input class="my-search" #search placeholder="rechercher" (keyup) = "onSearch(search.value)" />
-            <button class="my-btn" (click)="openDialog('250ms', '250ms')">
-                <label>Add new</label>
-                <img src="assets/add.svg" alt="" srcset="">
-            </button>
-        </div>
+    <!-- SEARCH LEVEL -->
+    <div class="action-head">
+      <input class="my-search" #search placeholder="rechercher" (keyup)="onSearch(search.value)"/>
+      <button class="my-btn" (click)="openDialog('250ms', '250ms')">
+        <label>Add new</label>
+        <img src="assets/add.svg" alt="" srcset="">
+      </button>
     </div>
+  </div>
 
+  <div class="list-items">
+    @if (isLoading) {
+      @for (item of [1,2,3,4,5,6,7,8,9,10]; track $index) {
+      <app-loader-skeleton-item></app-loader-skeleton-item>
+      }
+    } @else {
+      @for (item of dummySubscriberListSearch; track $index) {
+      <app-subscriber-item [data]="item"></app-subscriber-item>
+      }
+    }
 
-    <!-- Subscribers list -->
-    <div class="list-items">
-        @for (item of dummySubscriberListSearch; track $index) {
-            <app-subscriber-item [data]="item"></app-subscriber-item>
-        }
-    </div>
+  </div>
 </div>

@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { SubscriberUser } from '../../../models/subscriber-user';
-import { InitialesPipe } from '../../../pipes/initiales.pipe';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {SubscriberUser} from '../../../models/subscriber-user';
+import {InitialesPipe} from '../../../pipes/initiales.pipe';
+import {DataService} from "../../../services/data.service";
 
 @Component({
   selector: 'app-subscriber-item',
@@ -9,11 +10,17 @@ import { InitialesPipe } from '../../../pipes/initiales.pipe';
   templateUrl: './subscriber-item.component.html',
   styleUrl: './subscriber-item.component.scss'
 })
-export class SubscriberItemComponent implements OnInit{
-  @Input({required: true}) data : SubscriberUser;
+export class SubscriberItemComponent implements OnInit {
+  @Input({required: true}) data: SubscriberUser;
 
-  ngOnInit(): void {
-    
+  constructor(private dataService : DataService) {
   }
 
+  ngOnInit(): void {
+
+  }
+
+  onSelectedItem() {
+    this.dataService.setData(this.data);
+  }
 }
