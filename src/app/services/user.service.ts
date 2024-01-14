@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {SubscriberUser} from "../models/subscriber-user";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
@@ -12,6 +12,14 @@ import {TLService} from "../models/tlservice";
 export class UserService {
 
   constructor(private httpClient: HttpClient) {
+  }
+
+
+  /**
+   *  use to get all subscribers
+   */
+  getSubscribers(): Observable<Array<SubscriberUser>> {
+    return this.httpClient.get<Array<SubscriberUser>>(`${environment.BASE_URL}/subscribers`);
   }
 
   /**
@@ -58,5 +66,17 @@ export class UserService {
    */
   deleteSubscriber(phoneNumber: string): Observable<ApiResponse> {
     return this.httpClient.delete<ApiResponse>(`${environment.BASE_URL}/un-activated/${phoneNumber}`);
+  }
+
+  /**
+   * use to generate CDR
+   * @param data
+   */
+  generateCdr(data: {
+    phoneNumber: string,
+    imsi: string,
+    userType: string
+  }): Observable<ApiResponse> {
+    return this.httpClient.post<ApiResponse>(`${environment.BASE_URL}/generate-cdr`, data);
   }
 }

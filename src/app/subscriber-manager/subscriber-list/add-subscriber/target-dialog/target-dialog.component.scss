@@ -1,0 +1,40 @@
+.custom-btn-p{
+  padding: 12px 40px 12px 40px;
+}
+
+.mr-16{
+  margin-right: 16px;
+}
+
+.action-form{
+  margin: 24px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.my-dialog{
+  padding: 14px 23px 14px 23px;
+  &-title{
+    font-size: 16px;
+    font-weight: bold;
+    color: #386668;
+    text-align: center;
+    margin-top: 0;
+  }
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.form-content{
+  width: 100%;
+}
+
+.mb-3{
+  margin-bottom: 12px;
+}
+
+.w-100{
+  width: 100%;
+}

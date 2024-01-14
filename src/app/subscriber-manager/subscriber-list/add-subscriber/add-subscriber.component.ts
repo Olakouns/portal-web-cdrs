@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
+  MatDialog,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
@@ -13,16 +14,22 @@ import {MatAutocompleteModule, MatAutocompleteSelectedEvent} from "@angular/mate
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
 import {AsyncPipe, NgForOf} from "@angular/common";
-import {SERVICE_TYPE_MAP} from "../../../models/service-type.enum";
+import {SERVICE_TYPE_MAP, ServiceTypeEnum} from "../../../models/service-type.enum";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSelectModule} from "@angular/material/select";
 import {SubscriberType} from "../../../models/subscriber-type";
+import {UserService} from "../../../services/user.service";
+import {SubscriberUser} from "../../../models/subscriber-user";
+import {HttpErrorResponse} from "@angular/common/http";
+import {TargetDialogComponent} from "./target-dialog/target-dialog.component";
+import {TLService} from "../../../models/tlservice";
 
 
 class ServiceTypeList {
-  value: string;
+  value: ServiceTypeEnum;
   label: string;
   hasTargetNumber: boolean;
+  targetNumber?: string
 }
 
 @Component({
@@ -55,14 +62,15 @@ export class AddSubscriberComponent implements OnInit {
     phoneNumber: ['', [Validators.required]],
     imsi: ['', [Validators.required]],
     subscriberType: ['', [Validators.required]],
-    tlServices: ['', [Validators.required]],
+    tlServices: [''],
   });
 
   services: Array<ServiceTypeList> = [];
 
   isLoading = false;
+  userService: UserService = inject(UserService);
 
-  constructor(public dialogRef: MatDialogRef<AddSubscriberComponent>, public formBuilder: FormBuilder) {
+  constructor(public dialogRef: MatDialogRef<AddSubscriberComponent>, public formBuilder: FormBuilder, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -84,22 +92,65 @@ export class AddSubscriberComponent implements OnInit {
   onSelectItems($event: MatAutocompleteSelectedEvent) {
     console.log($event.option.value)
     let index = this.options.findIndex(option => option.label === $event.option.value);
-    console.log(index)
     if (index != -1) {
-      this.services.push(this.options[index]);
-      this.options.splice(index, 1);
-      this.launchFilter();
-      this.form.controls['tlServices'].setValue('');
+      if (this.options[index].hasTargetNumber) {
+        // show a little dialog to get target number
+        const dialog = this.dialog.open(TargetDialogComponent, {
+          width: '400px'
+        });
+
+        dialog.afterClosed().subscribe({
+          next: value => {
+            if (value) {
+              this.options[index].targetNumber = value;
+              this.services.push(this.options[index]);
+              this.options.splice(index, 1);
+              this.launchFilter();
+              this.form.controls['tlServices'].setValue('');
+            }
+          }
+        })
+      } else {
+        this.services.push(this.options[index]);
+        this.options.splice(index, 1);
+        this.launchFilter();
+        this.form.controls['tlServices'].setValue('');
+      }
     }
-    // this.options = this.options.filter(option => option.label !== $event.option.value);
-    // console.log(this.options)
-    // this.launchFilter();
   }
 
   onSubmit() {
-    console.log(this.form.value)
     this.isLoading = true;
-    // todo: create USER here
+    if (this.form.invalid && this.services.length == 0) {
+      // todo : show error message here
+      return
+    }
+
+    let user = new SubscriberUser();
+    user.name = this.form.value["name"] ?? "";
+    user.phoneNumber = this.form.value["phoneNumber"] ?? "";
+    user.imsi = this.form.value["imsi"] ?? "";
+    user.subscriberType = this.form.value["subscriberType"] ?? "";
+    user.tlServices = new Array<TLService>();
+
+    for (let serviceItem of this.services) {
+      let tlService: TLService = new TLService();
+      tlService.serviceType = serviceItem.value;
+      tlService.activated = true;
+      tlService.targetNumber = serviceItem.targetNumber ?? "";
+      user.tlServices.push(tlService);
+    }
+
+    this.userService.createSubscriber(user).subscribe({
+      next: response => {
+          if (response.statusCode == 200){
+            this.dialogRef.close(user);
+          }
+      },
+      error: HttpErrorResponse => {
+        // show error here
+      }
+    });
   }
 
   onRemoveItem(value: ServiceTypeList) {
