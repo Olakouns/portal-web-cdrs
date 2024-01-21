@@ -9,10 +9,33 @@
       <span>{{subscriber.subscriberType}}</span>
     </div>
 
-    <button class="my-btn" (click)="onAddServices('250ms', '250ms')">
-      <label>Add service</label>
-      <img src="assets/add.svg" alt="" srcset="">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
     </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onAddServices('250ms', '250ms')">
+        <mat-icon>add_circle</mat-icon>
+        <span>Ajouter service</span>
+      </button>
+      <button mat-menu-item (click)="onRemoveServices('250ms', '250ms')">
+        <mat-icon>remove_circle</mat-icon>
+        <span>Supprimer service</span>
+      </button>
+      <button mat-menu-item (click)="onToggleUserState()">
+        <mat-icon>adjust</mat-icon>
+        <span>{{isActivate() ? 'Suspendre' : 'Rétablir'}}</span>
+      </button>
+
+      <button mat-menu-item (click)="onGenerateInvoice()">
+        <mat-icon>format_align_center</mat-icon>
+        <span>Générer la facture</span>
+      </button>
+
+      <button mat-menu-item (click)="onToggleUserState(false)">
+        <mat-icon>delete</mat-icon>
+        <span>Désactivater</span>
+      </button>
+    </mat-menu>
   </div>
 
   <div class="mt-4">
@@ -22,4 +45,66 @@
       <img [src]="service.activated ? 'assets/service-e.svg' : 'assets/service-d.svg'" alt="" srcset="">
     </div>
   </div>
+
+
+  <div class="d-flex justify-content-center mt-5" *ngIf="isLoadingInvoice">
+    <mat-spinner diameter="20" mode="indeterminate"></mat-spinner>
+  </div>
+
+  <div *ngIf="currentInvoice">
+    <hr class="my-5 border-primary" style="border-color: #98cf66">
+
+    <div >
+      <h4 class="color-002021" style="font-weight: 500;">Informations sur les factures</h4>
+
+      <div class="mt-3">
+        <div class="invoice-item mb-3">
+          <div class="d-flex align-items-center">
+            <div class="invoice-item-circle invoice-item-circle-1">
+              <label>SMS</label>
+            </div>
+            <div class="ms-3">
+              <h6 class="mt-0 mb-1">Total</h6>
+              <label>{{currentInvoice.smsAmount}}</label>
+            </div>
+          </div>
+          <div>
+            <mat-icon>swap_horiz</mat-icon>
+          </div>
+
+          <div class="ms-3">
+            <h6 class="mt-0 mb-1">Montant</h6>
+            <label>{{currentInvoice.smsAmount | currencyXOF}}</label>
+          </div>
+        </div>
+
+        <div class="invoice-item">
+          <div class="d-flex align-items-center">
+            <div class="invoice-item-circle invoice-item-circle-2">
+              <label>Voice</label>
+            </div>
+            <div class="ms-3">
+              <h6 class="mt-0 mb-1">Total (Min)</h6>
+              <label>{{currentInvoice.totalCallDuration}}</label>
+            </div>
+          </div>
+          <div>
+            <mat-icon>swap_horiz</mat-icon>
+          </div>
+
+          <div class="ms-3">
+            <h6 class="mt-0 mb-1">Montant</h6>
+            <label>{{currentInvoice.callAmount | currencyXOF}}</label>
+          </div>
+        </div>
+
+
+        <div class="d-flex justify-content-center">
+          <h6 class="text-primary">Total : {{currentInvoice.totalAmount | currencyXOF}}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>

@@ -1,0 +1,45 @@
+<mat-dialog-content>
+  <div class="my-dialog">
+    <h4 class="my-dialog-title">{{title}}</h4>
+    <!--  form-->
+    <div class="form-content">
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <input type="text"
+                 placeholder="Services"
+                 aria-label="Number"
+                 formControlName="tlServices"
+                 matInput
+                 [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectItems($event)">
+            @for (option of filteredOptions | async; track option) {
+            <mat-option [value]="option.label">{{option.label + (option.hasTargetNumber ? "( Numero Cible )" : "")}}
+            </mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <div class="spans">
+          <div class="spans-chips"
+               [class]="{'spans-chips-color-1': !service.hasTargetNumber, 'spans-chips-color-2': service.hasTargetNumber}"
+               *ngFor="let service of services">
+            <span>{{service.label}}</span>
+            <img (click)="onRemoveItem(service)" src="assets/close-circle.svg" alt="" srcset="">
+          </div>
+        </div>
+
+        <div class="action-form" *ngIf="!isLoading">
+          <button class="my-btn-danger custom-btn-p mr-16" (click)="onClose()">Annuler</button>
+          <button class="my-btn custom-btn-p" type="submit">{{isNew ? 'Ajouter' : 'Supprimer'}}</button>
+        </div>
+
+        <div class="d-flex justify-content-center" *ngIf="isLoading">
+          <mat-spinner diameter="20" mode="indeterminate"></mat-spinner>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</mat-dialog-content>

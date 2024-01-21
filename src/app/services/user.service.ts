@@ -5,6 +5,7 @@ import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {ApiResponse} from "../models/api-response";
 import {TLService} from "../models/tlservice";
+import {Invoice} from "../models/invoice";
 
 @Injectable({
   providedIn: 'root'
@@ -78,5 +79,22 @@ export class UserService {
     userType: string
   }): Observable<ApiResponse> {
     return this.httpClient.post<ApiResponse>(`${environment.BASE_URL}/generate-cdr`, data);
+  }
+
+
+  /**
+   * use to generate invoice
+   * @param phoneNumber
+   */
+  generateInvoice(phoneNumber: string): Observable<Invoice> {
+    return this.httpClient.post<Invoice>(`${environment.BASE_URL}/generate-invoice/${phoneNumber}`, {});
+  }
+
+  /**
+   * use to generate invoices
+   * @param phoneNumber
+   */
+  generateInvoices(phoneNumber: Array<string>): Observable<Invoice> {
+    return this.httpClient.post<Invoice>(`${environment.BASE_URL}/generate-invoices/`, phoneNumber);
   }
 }

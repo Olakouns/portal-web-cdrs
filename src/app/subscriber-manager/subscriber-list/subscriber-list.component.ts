@@ -10,12 +10,16 @@ import {LoaderSkeletonItemComponent} from "./loader-skeleton-item/loader-skeleto
 import {ServiceTypeEnum} from "../../models/service-type.enum";
 import {UserService} from "../../services/user.service";
 import {HttpErrorResponse} from "@angular/common/http";
+import {DataService} from "../../services/data.service";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatMenuModule} from "@angular/material/menu";
 
 
 @Component({
   selector: 'app-subscriber-list',
   standalone: true,
-  imports: [SubscriberItemComponent, MatDialogModule, NgxSkeletonLoaderModule, InitialesPipe, LoaderSkeletonItemComponent],
+  imports: [SubscriberItemComponent, MatDialogModule, NgxSkeletonLoaderModule, InitialesPipe, LoaderSkeletonItemComponent, MatButtonModule, MatIconModule, MatMenuModule],
   templateUrl: './subscriber-list.component.html',
   styleUrl: './subscriber-list.component.scss'
 })
@@ -27,7 +31,13 @@ export class SubscriberListComponent implements OnInit {
   selectedSubscriber: SubscriberUser;
   userService: UserService = inject(UserService);
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private dataService : DataService) {
+    this.dataService.reload$.subscribe(data => {
+      if (data){
+        this.getSubscribers();
+        this.dataService.setData(null);
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -58,7 +68,7 @@ export class SubscriberListComponent implements OnInit {
     ))
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openDialog(enterAnimationDuration = '250ms', exitAnimationDuration = '250ms'): void {
     const dialog  = this.dialog.open(AddSubscriberComponent, {
       width: '700px',
       enterAnimationDuration,
@@ -75,7 +85,7 @@ export class SubscriberListComponent implements OnInit {
     })
   }
 
-  onSubscriberSelected($event: SubscriberUser) {
-    this.selectedSubscriber = $event;
+  onGenerateManyInvoice(enterAnimationDuration = '250ms', exitAnimationDuration = '250ms') {
+
   }
 }

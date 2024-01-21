@@ -14,7 +14,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100 mb-3">
-          <input matInput placeholder="Telephone" formControlName="phoneNumber">
+          <input type="text" matInput placeholder="Telephone" formControlName="phoneNumber">
         </mat-form-field>
 
         <mat-form-field  appearance="outline" class="w-100 mb-3">
@@ -46,9 +46,13 @@
         </div>
 
 
-        <div class="action-form">
+        <div class="action-form" *ngIf="!isLoading">
           <button class="my-btn-danger custom-btn-p mr-16" (click)="onClose()">Annuler</button>
           <button class="my-btn custom-btn-p" type="submit">Ajouter</button>
+        </div>
+
+        <div class="d-flex justify-content-center" *ngIf="isLoading">
+          <mat-spinner diameter="20" mode="indeterminate"></mat-spinner>
         </div>
 
       </form>

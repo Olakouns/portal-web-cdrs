@@ -6,10 +6,19 @@
     <!-- SEARCH LEVEL -->
     <div class="action-head">
       <input class="my-search" #search placeholder="rechercher" (keyup)="onSearch(search.value)"/>
-      <button class="my-btn" (click)="openDialog('250ms', '250ms')">
-        <label>Add new</label>
-        <img src="assets/add.svg" alt="" srcset="">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
       </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openDialog('250ms', '250ms')">
+          <mat-icon>add_circle</mat-icon>
+          <span>Ajouter un client</span>
+        </button>
+        <button mat-menu-item (click)="onGenerateManyInvoice()">
+          <mat-icon>format_align_center</mat-icon>
+          <span>Generer les factures</span>
+        </button>
+      </mat-menu>
     </div>
   </div>
 

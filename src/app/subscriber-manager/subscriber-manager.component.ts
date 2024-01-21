@@ -14,12 +14,15 @@ import {DataService} from "../services/data.service";
 export class SubscriberManagerComponent implements OnInit {
 
   currentSubscriber: SubscriberUser;
+  subExist = false
 
   constructor(private dataService : DataService) {
     this.dataService.data$.subscribe(data => {
       if (data){
+        this.subExist = true;
         this.currentSubscriber = data;
-        console.log(this.currentSubscriber);
+      } else {
+        this.subExist = false;
       }
     });
   }

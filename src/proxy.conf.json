@@ -1,0 +1,10 @@
+{
+  "/tls": {
+    "target": "http://localhost:4004",
+    "secure": false,
+    "pathRewrite": {
+      "^/tls": "tls"
+    }
+  },
+  "logLevel": "debug"
+}

@@ -65,3 +65,37 @@
     line-height: normal;
   }
 }
+
+
+.color-002021{
+  color: #002021;
+}
+
+
+.invoice-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &-circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+
+
+    &-1{
+      color: #002021;
+      background-color: #BCEBEE;
+    }
+
+    &-2{
+      color: #002021;
+      background-color: #FFDAD6;
+    }
+  }
+}

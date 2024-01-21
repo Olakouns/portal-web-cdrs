@@ -13,7 +13,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatAutocompleteModule, MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
-import {AsyncPipe, NgForOf} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {SERVICE_TYPE_MAP, ServiceTypeEnum} from "../../../models/service-type.enum";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSelectModule} from "@angular/material/select";
@@ -23,14 +23,10 @@ import {SubscriberUser} from "../../../models/subscriber-user";
 import {HttpErrorResponse} from "@angular/common/http";
 import {TargetDialogComponent} from "./target-dialog/target-dialog.component";
 import {TLService} from "../../../models/tlservice";
+import {ServiceTypeList} from "../../../models/service-type-list";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
-class ServiceTypeList {
-  value: ServiceTypeEnum;
-  label: string;
-  hasTargetNumber: boolean;
-  targetNumber?: string
-}
 
 @Component({
   selector: 'app-add-subscriber',
@@ -47,7 +43,7 @@ class ServiceTypeList {
     ReactiveFormsModule,
     MatIconModule,
     MatSelectModule,
-    AsyncPipe, NgForOf],
+    AsyncPipe, NgForOf, MatProgressSpinnerModule, NgIf],
   templateUrl: './add-subscriber.component.html',
   styleUrl: './add-subscriber.component.scss'
 })
@@ -90,7 +86,6 @@ export class AddSubscriberComponent implements OnInit {
   }
 
   onSelectItems($event: MatAutocompleteSelectedEvent) {
-    console.log($event.option.value)
     let index = this.options.findIndex(option => option.label === $event.option.value);
     if (index != -1) {
       if (this.options[index].hasTargetNumber) {
@@ -143,12 +138,15 @@ export class AddSubscriberComponent implements OnInit {
 
     this.userService.createSubscriber(user).subscribe({
       next: response => {
-          if (response.statusCode == 200){
-            this.dialogRef.close(user);
-          }
+        this.isLoading = false;
+        this.dialogRef.close(user);
+          // if (response.statusCode == 200){
+          //   this.dialogRef.close(user);
+          // }
       },
       error: HttpErrorResponse => {
         // show error here
+        this.isLoading = false;
       }
     });
   }
