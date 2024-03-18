@@ -26,6 +26,11 @@
         <span>{{isActivate() ? 'Suspendre' : 'Rétablir'}}</span>
       </button>
 
+      <button mat-menu-item (click)="onGenerateCDR()">
+        <mat-icon>format_align_center</mat-icon>
+        <span>Générer des donnees</span>
+      </button>
+
       <button mat-menu-item (click)="onGenerateInvoice()">
         <mat-icon>format_align_center</mat-icon>
         <span>Générer la facture</span>

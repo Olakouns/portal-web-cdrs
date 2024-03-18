@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {SubscriberUser} from "../../models/subscriber-user";
 import {NgForOf, NgIf} from "@angular/common";
 import {SERVICE_TYPE_MAP, ServiceTypeEnum} from "../../models/service-type.enum";
@@ -32,14 +32,14 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
   templateUrl: './subscriber-details.component.html',
   styleUrl: './subscriber-details.component.scss'
 })
-export class SubscriberDetailsComponent {
+export class SubscriberDetailsComponent implements OnInit, OnChanges{
   @Input({required: true}) subscriber: SubscriberUser;
 
   public dialog: MatDialog = inject(MatDialog);
-  currentInvoice : Invoice;
+  currentInvoice: Invoice | null;
   isLoadingInvoice = false;
 
-  constructor(private  dataService : DataService, private userService: UserService) {
+  constructor(private dataService: DataService, private userService: UserService) {
   }
 
   onAddServices(enterAnimationDuration: string, exitAnimationDuration: string) {
@@ -120,7 +120,7 @@ export class SubscriberDetailsComponent {
   onGenerateInvoice() {
     this.isLoadingInvoice = true;
     this.userService.generateInvoice(this.subscriber.phoneNumber).subscribe({
-      next : (response : Invoice) => {
+      next: (response: Invoice) => {
         this.isLoadingInvoice = false;
         this.currentInvoice = response;
         // console.log(response);
@@ -130,5 +130,28 @@ export class SubscriberDetailsComponent {
         this.isLoadingInvoice = false;
       }
     });
+  }
+
+  onGenerateCDR() {
+    this.isLoadingInvoice = true;
+    this.userService.generateCdr({
+      phoneNumber: this.subscriber.phoneNumber,
+      imsi: this.subscriber.imsi,
+      userType: this.subscriber.subscriberType
+    }).subscribe({
+      next: (response: ApiResponse) => {
+        this.isLoadingInvoice = false;
+      },
+      error: error => {
+        this.isLoadingInvoice = false;
+      }
+    });
+  }
+
+  ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.currentInvoice = null;
   }
 }
